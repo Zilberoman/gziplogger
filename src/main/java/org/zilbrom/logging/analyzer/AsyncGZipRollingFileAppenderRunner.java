@@ -9,7 +9,7 @@ import org.apache.logging.log4j.core.appender.AsyncAppender;
 import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
-import org.zilbrom.logging.GZipRollingFileAppender;
+import org.zilbrom.logging.appenders.GZipRollingFileAppender;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

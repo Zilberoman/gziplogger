@@ -91,7 +91,7 @@ public class RollingGZIPOutputStream extends OutputStream {
         buffer.putShort((short) GZIPInputStream.GZIP_MAGIC);
         buffer.put((byte) Deflater.DEFLATED); //compression method (8: deflate)
         buffer.put((byte) 0); //flags
-        buffer.putInt((int) 0); //modification time
+        buffer.putInt(0); //modification time
         buffer.put((byte) 0); // default compression level
         buffer.put((byte) 0); // operation system
         out.write(buffer.array());

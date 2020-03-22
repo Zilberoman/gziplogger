@@ -1,4 +1,4 @@
-package org.zilbrom.logging;
+package org.zilbrom.logging.managers;
 
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -22,8 +22,9 @@ import java.util.Date;
 
 public class GZipRollingFileManager extends RollingFileManager {
     private static GZipRollingFileManagerFactory factory = new GZipRollingFileManagerFactory();
-    private static RollingCountingOutputStream countingOutputStream;
     private static long flushPeriod = Constants.MILLIS_IN_SECONDS;
+
+    private static RollingCountingOutputStream countingOutputStream;
 
     protected GZipRollingFileManager(LoggerContext loggerContext, String fileName, String pattern, OutputStream os,
                                      boolean append, boolean createOnDemand, long size, long time,
@@ -31,8 +32,7 @@ public class GZipRollingFileManager extends RollingFileManager {
                                      String advertiseUri, Layout<? extends Serializable> layout, boolean writeHeader,
                                      ByteBuffer buffer) {
         super(loggerContext, fileName, pattern, os, append, createOnDemand, size, time, triggeringPolicy,
-                rolloverStrategy, advertiseUri, layout, "", "", "",
-                writeHeader, buffer);
+                rolloverStrategy, advertiseUri, layout, "", "", "", writeHeader, buffer);
     }
 
     public static GZipRollingFileManager getFileManager(final String fileName, final String pattern,
@@ -61,7 +61,7 @@ public class GZipRollingFileManager extends RollingFileManager {
          * @return a RollingFileManager.
          */
         public GZipRollingFileManager createManager(final String name, final FactoryData data) {
-            long size = 0;
+            long size = 0L;
             boolean writeHeader = !data.append;
             File file = null;
             boolean newFileCreated = !data.createOnDemand;
@@ -86,13 +86,12 @@ public class GZipRollingFileManager extends RollingFileManager {
                 final int actualSize = data.bufferedIO ? data.bufferedSize : Constants.ENCODER_BYTE_BUFFER_SIZE;
                 final ByteBuffer buffer = ByteBuffer.wrap(new byte[actualSize]);
                 OutputStream os = null;
-                final long time = data.createOnDemand || file == null
-                        ? System.currentTimeMillis()
-                        : file.lastModified();
+                final long time = data.createOnDemand || file == null ? System.currentTimeMillis() : file.lastModified();
 
                 if (!data.createOnDemand && data.fileName != null) {
                     FileOutputStream fileOutputStream = new FileOutputStream(file, data.append);
                     countingOutputStream = new RollingCountingOutputStream(fileOutputStream);
+
                     //Add gzip header if new file was created
                     os = new RollingGZIPOutputStream(countingOutputStream, actualSize, flushPeriod, newFileCreated);
                 }
@@ -134,7 +133,6 @@ public class GZipRollingFileManager extends RollingFileManager {
          * @param pattern The pattern.
          * @param append The append flag.
          * @param bufferedIO The bufferedIO flag.
-         * @param advertiseURI
          * @param layout The Layout.
          * @param bufferSize The buffer size.
          * @param immediateFlush flush on every write or not

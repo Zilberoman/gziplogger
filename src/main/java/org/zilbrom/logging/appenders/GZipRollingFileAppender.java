@@ -1,4 +1,4 @@
-package org.zilbrom.logging;
+package org.zilbrom.logging.appenders;
 
 import org.apache.logging.log4j.core.*;
 import org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender;
@@ -11,6 +11,7 @@ import org.apache.logging.log4j.core.config.plugins.*;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.apache.logging.log4j.core.net.Advertiser;
 import org.apache.logging.log4j.core.util.Constants;
+import org.zilbrom.logging.managers.GZipRollingFileManager;
 import org.zilbrom.logging.strategies.GZipDefaultRolloverStrategy;
 import org.zilbrom.logging.strategies.GZipDirectWriteRolloverStrategy;
 

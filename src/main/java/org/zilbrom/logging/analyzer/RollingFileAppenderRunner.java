@@ -2,18 +2,11 @@ package org.zilbrom.logging.analyzer;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.appender.RollingFileAppender;
-import org.apache.logging.log4j.core.appender.rolling.CompositeTriggeringPolicy;
-import org.apache.logging.log4j.core.appender.rolling.DefaultRolloverStrategy;
-import org.apache.logging.log4j.core.appender.rolling.OnStartupTriggeringPolicy;
-import org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy;
-import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
-import org.apache.logging.log4j.core.layout.PatternLayout;
 
 import java.util.Date;
 
@@ -38,37 +31,15 @@ public class RollingFileAppenderRunner {
         LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false);
         Configuration configuration = loggerContext.getConfiguration();
 
-        PatternLayout layout = PatternLayout
-                .newBuilder()
-                .withPattern(SpeedRollingFileAppenderAnalyzer.LAYOUT_PATTERN)
-                .build();
-
-        OnStartupTriggeringPolicy startupTriggeringPolicy = OnStartupTriggeringPolicy.createPolicy(0);
-
-        SizeBasedTriggeringPolicy sizePolicy = SizeBasedTriggeringPolicy
-                .createPolicy(SpeedRollingFileAppenderAnalyzer.ROLLING_FILE_SIZE);
-
-        CompositeTriggeringPolicy policy = CompositeTriggeringPolicy.createPolicy(startupTriggeringPolicy, sizePolicy);
-        DefaultRolloverStrategy strategy = DefaultRolloverStrategy.createStrategy("1000", null, null,
-                null, null, false, configuration);
-
-        Appender appender = RollingFileAppender
-                .newBuilder()
-                .setName(RollingFileAppender.PLUGIN_NAME)
-                .withFileName(ROLLING_FILE_NAME)
-                .withFilePattern(ROLLING_FILE_PATTERN_NAME)
-                .withPolicy(policy)
-                .withStrategy(strategy)
-                .setLayout(layout)
-                .build();
+        Appender appender = RollingFileAppenderBuilder.createAppender(ROLLING_FILE_NAME, ROLLING_FILE_PATTERN_NAME,
+                configuration);
 
         configuration.addAppender(appender);
         appender.start();
-        AppenderRef ref = AppenderRef.createAppenderRef("STDOUT", Level.DEBUG, null);
-        AppenderRef[] refs = new AppenderRef[] {ref};
+
         LoggerConfig loggerConfig = LoggerConfig.createLogger(true, Level.ALL,
-                RollingFileAppenderRunner.class.getName(), null, refs, null, configuration,
-                null);
+                RollingFileAppenderRunner.class.getName(), null,
+                RollingFileAppenderBuilder.createAppenderRefs(), null, configuration, null);
         loggerConfig.addAppender(appender, null, null);
         configuration.addLogger(RollingFileAppenderRunner.class.getName(), loggerConfig);
         loggerContext.updateLoggers();

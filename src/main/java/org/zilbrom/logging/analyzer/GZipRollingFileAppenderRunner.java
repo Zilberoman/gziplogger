@@ -2,8 +2,8 @@ package org.zilbrom.logging.analyzer;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.rolling.CompositeTriggeringPolicy;
 import org.apache.logging.log4j.core.appender.rolling.OnStartupTriggeringPolicy;
@@ -12,7 +12,7 @@ import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
-import org.zilbrom.logging.GZipRollingFileAppender;
+import org.zilbrom.logging.appenders.GZipRollingFileAppender;
 import org.zilbrom.logging.strategies.GZipDefaultRolloverStrategy;
 
 import java.util.Date;

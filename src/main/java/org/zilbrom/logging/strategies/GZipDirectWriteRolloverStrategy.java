@@ -11,7 +11,7 @@ import org.apache.logging.log4j.core.appender.rolling.action.FileRenameAction;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.plugins.*;
 import org.apache.logging.log4j.core.lookup.StrSubstitutor;
-import org.zilbrom.logging.GZipRollingFileAppender;
+import org.zilbrom.logging.appenders.GZipRollingFileAppender;
 
 import java.io.File;
 import java.io.IOException;
