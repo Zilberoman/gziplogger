@@ -1,12 +1,14 @@
-package org.zilbrom.logging.analyzer;
+package org.zilbrom.logging.analyzer.runners;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.zilbrom.logging.analyzer.SpeedRollingFileAppenderAnalyzer;
 
 import java.util.Date;
 
@@ -39,7 +41,8 @@ public class RollingFileAppenderRunner {
 
         LoggerConfig loggerConfig = LoggerConfig.createLogger(true, Level.ALL,
                 RollingFileAppenderRunner.class.getName(), null,
-                RollingFileAppenderBuilder.createAppenderRefs(), null, configuration, null);
+                RollingFileAppenderBuilder.createAppenderRefs(RollingFileAppender.PLUGIN_NAME), null,
+                configuration, null);
         loggerConfig.addAppender(appender, null, null);
         configuration.addLogger(RollingFileAppenderRunner.class.getName(), loggerConfig);
         loggerContext.updateLoggers();

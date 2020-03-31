@@ -1,4 +1,4 @@
-package org.zilbrom.logging.analyzer;
+package org.zilbrom.logging.analyzer.runners;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +9,7 @@ import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.apache.logging.log4j.core.appender.rolling.DefaultRolloverStrategy;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.zilbrom.logging.analyzer.SpeedRollingFileAppenderAnalyzer;
 
 import java.util.Date;
 import java.util.zip.Deflater;
@@ -40,7 +41,8 @@ public class RollingFileAppenderWithGZipRunner {
         appender.start();
         LoggerConfig loggerConfig = LoggerConfig.createLogger(true, Level.ALL,
                 RollingFileAppenderWithGZipRunner.class.getName(), null,
-                RollingFileAppenderBuilder.createAppenderRefs(), null, configuration, null);
+                RollingFileAppenderBuilder.createAppenderRefs(RollingFileAppender.PLUGIN_NAME),
+                null, configuration, null);
         loggerConfig.addAppender(appender, null, null);
         configuration.addLogger(RollingFileAppenderWithGZipRunner.class.getName(), loggerConfig);
         loggerContext.updateLoggers();

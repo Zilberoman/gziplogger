@@ -1,4 +1,4 @@
-package org.zilbrom.logging.analyzer;
+package org.zilbrom.logging.analyzer.runners;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Appender;
@@ -10,6 +10,7 @@ import org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy;
 import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+import org.zilbrom.logging.analyzer.SpeedRollingFileAppenderAnalyzer;
 
 public class RollingFileAppenderBuilder {
     public static CompositeTriggeringPolicy createPolicy() {
@@ -50,7 +51,11 @@ public class RollingFileAppenderBuilder {
     }
 
     public static AppenderRef[] createAppenderRefs() {
-        AppenderRef ref = AppenderRef.createAppenderRef("STDOUT", Level.DEBUG, null);
+        return createAppenderRefs("STDOUT");
+    }
+
+    public static AppenderRef[] createAppenderRefs(String appenderName) {
+        AppenderRef ref = AppenderRef.createAppenderRef(appenderName, Level.DEBUG, null);
         return new AppenderRef[] {ref};
     }
 }

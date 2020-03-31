@@ -1,6 +1,9 @@
 package org.zilbrom.logging.analyzer;
 
 import org.apache.logging.log4j.core.Logger;
+import org.zilbrom.logging.analyzer.runners.GZipRollingFileAppenderRunner;
+import org.zilbrom.logging.analyzer.runners.RollingFileAppenderRunner;
+import org.zilbrom.logging.analyzer.runners.RollingFileAppenderWithGZipRunner;
 
 import java.util.Random;
 
@@ -21,10 +24,10 @@ public class SpeedRollingFileAppenderAnalyzer {
         }
 
         //RollingFileAppender
-        RollingFileAppenderRunner.run(cycleSize);
+//        RollingFileAppenderRunner.run(cycleSize);
 
         //RollingFileAppender with gzip
-        RollingFileAppenderWithGZipRunner.run(cycleSize);
+//        RollingFileAppenderWithGZipRunner.run(cycleSize);
 
         //GZipRollingFileAppender
         GZipRollingFileAppenderRunner.run(cycleSize);

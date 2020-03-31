@@ -1,4 +1,4 @@
-package org.zilbrom.logging.analyzer;
+package org.zilbrom.logging.analyzer.runners;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +12,7 @@ import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+import org.zilbrom.logging.analyzer.SpeedRollingFileAppenderAnalyzer;
 import org.zilbrom.logging.appenders.GZipRollingFileAppender;
 import org.zilbrom.logging.strategies.GZipDefaultRolloverStrategy;
 
@@ -40,7 +41,7 @@ public class GZipRollingFileAppenderRunner {
         Appender appender = createAppender(configuration);
         configuration.addAppender(appender);
         appender.start();
-        AppenderRef ref = AppenderRef.createAppenderRef("STDOUT", Level.DEBUG, null);
+        AppenderRef ref = AppenderRef.createAppenderRef(GZipRollingFileAppender.PLUGIN_NAME, Level.DEBUG, null);
         AppenderRef[] refs = new AppenderRef[] {ref};
         LoggerConfig loggerConfig = LoggerConfig.createLogger(false, Level.ALL,
                 GZipRollingFileAppenderRunner.class.getName(), null, refs, null, configuration,

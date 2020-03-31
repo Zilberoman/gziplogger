@@ -1,5 +1,7 @@
 package org.zilbrom.logging.analyzer;
 
+import org.zilbrom.logging.analyzer.runners.AsyncGZipRollingFileAppenderRunner;
+
 public class MultyThreadAnalyzer {
     private static final byte DEFAULT_NUMBER_OF_THREADS = 8;
 

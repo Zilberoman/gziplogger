@@ -1,4 +1,4 @@
-package org.zilbrom.logging.analyzer;
+package org.zilbrom.logging.analyzer.runners;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
