@@ -6,6 +6,7 @@ import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.AsyncAppender;
+import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.apache.logging.log4j.core.config.AppenderRef;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
@@ -21,11 +22,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class AsyncGZipRollingFileAppenderRunner {
-    private static final String SOURCE_FILE_PATH = "out/gzip-rolling-file/example.log";
+    private static final String SOURCE_FILE_PATH = "out/gzip-rolling-file/example.528M.log";
 
     private AsyncGZipRollingFileAppenderRunner() {}
-
-    public static void run(byte threadsNumber) {
+   public static void run(byte threadsNumber) {
         LoggerContext loggerContext = prepareAsyncGZipRollingFileAppender();
         Logger logger = loggerContext.getLogger(AsyncGZipRollingFileAppenderRunner.class.getName());
         long startTime = System.currentTimeMillis();
@@ -56,13 +56,14 @@ public class AsyncGZipRollingFileAppenderRunner {
     private static LoggerContext prepareAsyncGZipRollingFileAppender() {
         LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false);
         Configuration configuration = loggerContext.getConfiguration();
-        Appender appender = GZipRollingFileAppenderRunner.createAppender(configuration);
-        // Appender appender = RollingFileAppenderWithGZipRunner.createAppender(configuration);
+//        Appender appender = GZipRollingFileAppenderRunner.createAppender(configuration);
+//         Appender appender = RollingFileAppenderWithGZipRunner.createAppender(configuration);
+         Appender appender = RollingFileAppenderRunner.createAppender(configuration);
 
         configuration.addAppender(appender);
         appender.start();
-        AppenderRef ref = AppenderRef.createAppenderRef(GZipRollingFileAppender.PLUGIN_NAME, Level.INFO, null);
-        // AppenderRef ref = AppenderRef.createAppenderRef(RollingFileAppender.PLUGIN_NAME, Level.INFO, null);
+//        AppenderRef ref = AppenderRef.createAppenderRef(GZipRollingFileAppender.PLUGIN_NAME, Level.INFO, null);
+         AppenderRef ref = AppenderRef.createAppenderRef(RollingFileAppender.PLUGIN_NAME, Level.INFO, null);
 
         AppenderRef[] refs = new AppenderRef[] {ref};
 

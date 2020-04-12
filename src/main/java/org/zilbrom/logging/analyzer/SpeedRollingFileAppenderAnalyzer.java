@@ -10,8 +10,8 @@ import java.util.Random;
 public class SpeedRollingFileAppenderAnalyzer {
     public static final String LAYOUT_PATTERN =
             "%-5p %d{dd-MM-yyyy HH:mm:ss,SSS} (%c{3})%X{txnInfo} - %notEmpty{%marker: }%m%n";
-    public static final  String ROLLING_FILE_SIZE = "50MB";
-    private static final long DEFAULT_CYCLE_SIZE = 10000000L;
+    public static final  String ROLLING_FILE_SIZE = "100MB";
+    private static final long DEFAULT_CYCLE_SIZE = 1000000L;
     private static final Random random = new Random();
 
     public static void main(String[] args) {

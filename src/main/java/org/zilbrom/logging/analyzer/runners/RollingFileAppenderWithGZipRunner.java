@@ -16,7 +16,7 @@ import java.util.zip.Deflater;
 
 public class RollingFileAppenderWithGZipRunner {
     private static final String ROLLING_FILE_NAME = "out/out/rolling-file/gzip/file.log";
-    private static final String ROLLING_FILE_PATTERN_NAME = ROLLING_FILE_NAME + "%d{yyyy-MM-dd}.%i.gz";
+    private static final String ROLLING_FILE_PATTERN_NAME = ROLLING_FILE_NAME + ".%d{yyyy-MM-dd}.%i.gz";
 
     private RollingFileAppenderWithGZipRunner(){}
 
