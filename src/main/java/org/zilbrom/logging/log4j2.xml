@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration shutdownHook="disable">
+    <Properties>
+        <Property name="layout" value="%-5p %d{dd-MM-yyyy HH:mm:ss,SSS} (%c{3})%X{txnInfo} - %notEmpty(%marker: }%m%n"/>
+        <Property name="logFileGZ" value="${sys:gbaLogFileGZ}"/>
+    </Properties>
+
+    <Appenders>
+        <GZipRollingFileAppender name="FILE_GZ" fileName="${logFileGZ}" filePattern="${logFileGZ}.%d{yyyy-MM-dd}.%i">
+            <PatternLayout pattern="${layout}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="200MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <GZipDefaultRolloverStrategy max="1000"/>
+        </GZipRollingFileAppender>
+
+        <Async name="FILE_GZ_ASYNC" bufferSize="500">
+            <AppenderRef ref="FILE_GZ"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="FILE_GZ_ASYNC"/>
+        </Root>
+    </Loggers>
+</Configuration>
